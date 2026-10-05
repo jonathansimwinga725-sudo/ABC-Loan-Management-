@@ -1,0 +1,16 @@
+{
+  "name": "abc-loan-management",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Multi-tenant lending platform developed under EJ Businesses.",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "npm --workspace apps/web run dev",
+    "dev:web": "npm --workspace apps/web run dev",
+    "dev:api": "npm --workspace apps/api run dev",
+    "build:web": "npm --workspace apps/web run build",
+    "build:api": "npm --workspace apps/api run build",
+    "typecheck": "npm --workspace apps/api run typecheck"
+  },
+  "engines": { "node": ">=20" }
+}
