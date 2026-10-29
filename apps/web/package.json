@@ -5,13 +5,13 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0",
     "build": "next build",
-    "start": "next start -H 0.0.0.0"
+    "start": "next start -H 0.0.0.0",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "next": "^15.5.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "lucide-react": "^0.468.0"
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

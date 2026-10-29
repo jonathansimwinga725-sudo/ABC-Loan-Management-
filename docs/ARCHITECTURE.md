@@ -1,42 +1,13 @@
-# ABC Loan Management — Architecture
+# Runtime architecture
 
-ABC Loan Management is a multi-tenant lending SaaS developed under EJ Businesses. Zambia is the first market, while country, currency and identity rules must remain configurable.
+The Next.js web app proxies same-origin `/api/*` calls to a Node HTTP service. The API binds to loopback by default; expose only the web port. The browser receives an HttpOnly, SameSite=Strict session cookie, with the Secure flag enabled through `COOKIE_SECURE`. Cross-origin mutations are rejected by the web proxy. No authentication token is stored in localStorage.
 
-## Core principles
+SQLite runs in WAL mode with foreign keys enabled. Companies, users, sessions, business records, payment request keys and audit events are persistent. Every record read and mutation uses the authenticated company ID; clients are separately limited to their linked borrower. Request fields never supply the effective company or role.
 
-1. Tenant isolation: every lender-owned business record is scoped to an organisation.
-2. API first: web and future mobile clients consume the same application API.
-3. Ledger first: financial balances are derived from auditable transactions, never silently overwritten.
-4. Configurable lending: loan products define interest method, rates, terms, fees and repayment frequency.
-5. Security by default: least privilege, role-based access, audit events, secret isolation and validation.
-6. Integration boundaries: mobile money, banks, bureaus, KYC and messaging connect through provider adapters.
+Mutations run inside `BEGIN IMMEDIATE` transactions. Loan status changes, repayments, journals and audit records commit or roll back together. Money uses integer ngwee; rate calculations round at each instalment and the final principal instalment clears residual rounding. Month-end due dates clamp to the last valid day. Loan terms are copied from the product before approval.
 
-## Initial modules
+Disbursement debits principal receivable and credits cash. Repayments allocate oldest instalment first, interest then principal, debit cash and credit principal receivable / interest income. This is cash-basis recognition, not a statutory accrual ledger. No public endpoint edits or deletes payments or journals. Reversal support is pending.
 
-- Identity & authentication
-- Organisations, branches, staff and roles
-- Individual and business borrowers
-- Loan products
-- Applications and approvals
-- Guarantors and collateral
-- Loan accounts and repayment schedules
-- Double-entry ledger
-- Payments and reconciliation
-- Arrears and collections
-- Notifications
-- Reporting and audit
+Sessions contain random 256-bit tokens; only SHA-256 token hashes are stored. Passwords are salted and hashed with scrypt. Authentication attempts are limited in-process by API peer address (the local proxy); use a trusted proxy and a shared, per-client limiter before scaling. Password recovery and MFA remain pending.
 
-## Tenant model
-
-EJ Businesses operates the platform. Each lending company is an organisation (tenant). Staff memberships connect users to organisations and roles. Borrowers can authenticate through the platform while their lending relationships remain tenant-scoped.
-
-## Financial integrity
-
-Posted ledger entries are immutable. Corrections use reversals and new entries. Every journal must balance debits and credits. Monetary values use fixed-precision database numbers, never floating-point arithmetic.
-
-## Planned clients
-
-- Lender web application
-- Borrower web application
-- Platform administration
-- Future native mobile clients
+Oracle migration files are a design reference only. The current API has no Oracle dependency. Use one Node API process and persistent disk. This development release requires additional operational and security controls before public commercial deployment; see README.

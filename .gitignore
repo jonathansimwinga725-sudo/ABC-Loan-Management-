@@ -12,3 +12,8 @@ coverage/
 wallet/
 *.pem
 *.key
+
+**/data/
+*.sqlite*
+*.tsbuildinfo
+.next/

@@ -1,7 +1,5 @@
-# Database
+# Database designs
 
-Oracle Database is the system of record. SQL migrations will live in this directory and will be reviewed before being applied to shared environments.
+The running application uses SQLite through `node:sqlite` in `apps/api/src/server.mjs`. Tables and indexes are created on startup. See the root README for persistence and backup instructions.
 
-Initial domain model: organisations, branches, users, memberships, borrowers, loan products, applications, guarantors, collateral, loans, schedules, journals, ledger entries, payments, collections and audit events.
-
-Never commit Oracle passwords, wallets, private keys or production exports.
+`migrations/001_core_schema.sql` is the earlier Oracle schema design. It is retained as a reference for a future Oracle integration; running it does not connect the current app to Oracle. Do not apply it to a production database without a reviewed migration and data reconciliation plan.

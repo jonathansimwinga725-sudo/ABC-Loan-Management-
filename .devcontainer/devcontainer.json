@@ -1,7 +1,10 @@
 {
   "name": "ABC Loan Management",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
-  "forwardPorts": [3000, 4000],
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-24-bookworm",
+  "forwardPorts": [
+    3000,
+    4000
+  ],
   "portsAttributes": {
     "3000": {
       "label": "ABC Web App",
@@ -9,7 +12,8 @@
     },
     "4000": {
       "label": "ABC API",
-      "onAutoForward": "notify"
+      "onAutoForward": "notify",
+      "visibility": "private"
     }
   },
   "postCreateCommand": "npm install"

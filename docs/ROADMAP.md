@@ -1,52 +1,31 @@
-# Product Roadmap
+# Implementation status
 
-## Phase 1 — Foundation
-- [x] Multi-tenant architecture
-- [x] Oracle connection foundation
-- [x] Core domain schema
-- [x] Ledger data model
-- [ ] Authentication and session management
-- [ ] Tenant-aware authorization
-- [ ] Organisation onboarding
+## Working now
 
-## Phase 2 — Lending Core
-- [ ] Borrower onboarding
-- [ ] Loan product builder
-- [ ] Application workflow
-- [ ] Approval workflow
-- [ ] Guarantors and collateral
-- [ ] Loan origination
-- [ ] Flat-interest schedule calculator
-- [ ] Reducing-balance schedule calculator
-- [ ] Disbursement workflow
+- Company registration and persistent, isolated workspaces
+- Password hashing, eight-hour sessions, login/logout
+- Administrator and borrower read-only access
+- Borrower register, manual KYC verification, client login creation
+- Product creation and saved rate / security rules
+- Loan requests, approval/rejection and disbursement
+- Flat and reducing-balance monthly schedules
+- Manual repayments, allocation, retry protection and closure
+- Printable receipts, balanced journals, audit trail
+- Overdue instalments, manually prepared SMS reminders
+- Portfolio reports and CSV export
+- Responsive interface, build and integration checks
 
-## Phase 3 — Money Movement
-- [ ] Ledger posting engine
-- [ ] Manual cash payments
-- [ ] Bank transfer reconciliation
-- [ ] MTN MoMo adapter
-- [ ] Airtel Money adapter
-- [ ] Zamtel Money adapter
-- [ ] Receipts and reversals
+## Remaining before commercial production
 
-## Phase 4 — Operations
-- [ ] Arrears engine
-- [ ] Collections workspace
-- [ ] Promise-to-pay and hardship workflows
-- [ ] Notifications
-- [ ] Reports and exports
-- [ ] Full audit explorer
+- Password change/reset, MFA and shared abuse protection
+- Separate loan officer / approver roles and maker/checker controls
+- Branches and staff invitations / revocation
+- Identity document storage, guarantor consent and verified collateral valuations
+- Payment corrections through audited reversals, reconciliation and statements
+- Bank/mobile-money provider integrations and delivery confirmation
+- Automated SMS/email reminders with provider configuration
+- Oracle repository implementation, migration and parallel ledger reconciliation
+- Backup/restore automation, monitoring, deployment and independent review
+- Fees, penalties, early settlement and non-monthly schedules with defined policy
 
-## Phase 5 — Experiences
-- [ ] Lender dashboard
-- [ ] Borrower login and dashboard
-- [ ] Responsive/mobile experience
-- [ ] ABC navy/green design system
-- [ ] White-label tenant branding
-
-## Phase 6 — Intelligence
-- [ ] Explainable underwriting assistance
-- [ ] Fraud/risk signals
-- [ ] Predictive delinquency
-- [ ] Intelligent collections recommendations
-- [ ] Credit bureau adapters
+The UI labels manual processes explicitly and does not display invented production activity.
