@@ -1,0 +1,13 @@
+{
+  "name": "@abc/api",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/start.mjs",
+    "start": "node src/start.mjs",
+    "build": "node --check src/server.mjs",
+    "typecheck": "node --check src/server.mjs",
+    "test": "node --test test/*.test.mjs"
+  }
+}

@@ -1,0 +1,9 @@
+"use client";
+import Link from 'next/link';
+import {usePathname} from 'next/navigation';
+import {useState,ReactNode} from 'react';
+const navigation=[['/','Overview'],['/borrowers','Borrowers'],['/applications','Loan requests'],['/loans','Loans'],['/products','Loan products'],['/disbursements','Disbursements'],['/payments','Repayments'],['/transactions','Transactions'],['/collections','Collections'],['/kyc','KYC review'],['/guarantors','Collateral & guarantors'],['/accounting','Accounting'],['/reports','Reports'],['/audit','Audit trail'],['/team','Client access'],['/roles','Permissions'],['/settings','Settings']];
+export default function AppShell({children,user,onLogout}:{children:ReactNode;user?:Record<string,any>;onLogout?:()=>void}) {
+ const path=usePathname(),[open,setOpen]=useState(false);
+ return <main className="shell"><aside className={`sidebar ${open?'open':''}`}><Link href="/" className="brand"><div className="mark"><span>A</span><b>B</b><span>C</span></div><div><strong>ABC</strong><small>Loan Management</small></div></Link><nav className="grouped-nav">{navigation.filter(([p])=>user?.role!=='CLIENT'||['/','/loans','/payments','/reports'].includes(p)).map(([href,label])=><Link key={href} href={href} onClick={()=>setOpen(false)} className={path===href?'active':''}>{label}</Link>)}</nav><div className="side-footer"><small>© {new Date().getFullYear()} EJ Businesses</small></div></aside><section className="workspace"><header><button className="menu" onClick={()=>setOpen(!open)} aria-label="Toggle navigation" aria-expanded={open}>☰</button><strong>{user?.company || 'ABC Loan Management'}</strong><div className="header-actions"><div className="profile"><div><strong>{user?.name}</strong><small>{user?.role==='CLIENT'?'Client':'Administrator'}</small></div></div><button onClick={onLogout}>Sign out</button></div></header>{children}</section></main>;
+}
